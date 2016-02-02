@@ -51,8 +51,9 @@ end
 
 def attach_readable_time!(task, field)
   if not task[field].nil?
-    date = DateTime.strptime((task[field] / 1000).to_s, '%s')
-    task[field] = date.strftime("%Y-%m-%d %H:%M:%S:00 +0900")
+    timezone = 64800 # 18 * 60 * 60
+    date = DateTime.strptime(((task[field] / 1000) + timezone).to_s, '%s')
+    task[field] = date.strftime("%Y-%m-%d %H:%M:%S +0900")
   end
   task
 end
